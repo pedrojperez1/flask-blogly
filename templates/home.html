@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Blogly Home{% endblock %}
+{% block content %}
+    <div class="h1">Blogly Recent Posts</div>
+    {% for post in posts %}
+    <div class="h3 mt-3">{{post.title}}</div>
+    <div class="p">{{post.content}}</div>
+    <div class="p">By {{post.user.get_full_name()}} on {{post.created_time}}</div>
+    {% endfor %}
+{% endblock %}

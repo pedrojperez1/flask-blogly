@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}{{post.title}}{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="h1">{{post.title}}</div>
+    </div>
+    <div class="row">
+        <div class="p">
+            {{post.content}}
+        </div>
+    </div>
+    <div class="row">
+        <i>By {{post.user.get_full_name()}}</i>
+    </div>
+    <div class="row mt-3">
+        <form action="/posts/{{post.id}}/edit">
+            <button type="submit" class="btn btn-primary mr-1">Edit</button>
+        </form>
+        <form action="/posts/{{post.id}}/delete" method="POST">
+            <button type="submit" class="btn btn-danger mr-1">Delete</button>
+        </form>
+    </div>
+</div>
+<a href="/users/{{post.user_id}}" class="btn btn-link btn-sm active" role="button" aria-pressed="true">Back</a>
+{% endblock %}

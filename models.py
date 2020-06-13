@@ -1,6 +1,7 @@
 """Models for Blogly."""
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
 
 db = SQLAlchemy()
 
@@ -28,7 +29,7 @@ class User(db.Model):
     )
     
     image_url = db.Column(
-        db.String(),
+        db.String,
         nullable=True,
         server_default='https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/512px-User_font_awesome.svg.png'
     )
@@ -40,3 +41,34 @@ class User(db.Model):
     def __repr__(self):
         """Better repr dunder for User"""
         return f'<User {self.first_name} {self.last_name} id={self.id}'
+
+class Post(db.Model):
+    __tablename__ = 'posts'
+
+    id = db.Column(
+        db.Integer,
+        primary_key=True,
+        autoincrement=True,
+    )
+
+    title = db.Column(
+        db.String(100),
+        nullable=False,
+    )
+
+    content = db.Column(
+        db.String,
+        nullable=False,
+    )
+
+    created_time = db.Column(
+        db.DateTime,
+        server_default=func.now(),
+    )
+
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id'),
+    )
+
+    user = db.relationship('User', backref='posts')
