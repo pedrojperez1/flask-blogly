@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}New Post{% endblock %}
 {% block content %}
-<div class="h1">Add Post for {{user.get_full_name()}}</div>
+<div class="h1 mb-3">Add Post for {{user.get_full_name()}}</div>
 <form action="/users/{{user.id}}/posts/new" method="POST">
     <div class="form-group">
         <label for="title">Title</label>
@@ -11,7 +11,16 @@
         <label for="content">Content</label>
         <textarea class="form-control" name="content" id="content" rows="4"></textarea>
     </div>
+    <div class="form-group">
+        <label for="tags">Tags</label>
+        <select class="selectpicker" multiple data-live-search="true" name="tags">
+            {% for tag in tags %}
+            <option value="{{tag.id}}">{{tag.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     <a href="/users/{{user.id}}" class="btn btn-light" role="button" aria-pressed="true">Cancel</a>
+        
 </form>
 {% endblock %}

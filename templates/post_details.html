@@ -13,6 +13,9 @@
     <div class="row">
         <i>By {{post.user.get_full_name()}}</i>
     </div>
+    <div class="row">
+        <b>Tags: </b>{% for tag in post.tags %}<span class="badge badge-primary m-1">{{tag.name}}</span>{% endfor %}
+    </div>
     <div class="row mt-3">
         <form action="/posts/{{post.id}}/edit">
             <button type="submit" class="btn btn-primary mr-1">Edit</button>
@@ -22,5 +25,4 @@
         </form>
     </div>
 </div>
-<a href="/users/{{post.user_id}}" class="btn btn-link btn-sm active" role="button" aria-pressed="true">Back</a>
 {% endblock %}
